@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         self.setYesterdaysSteps()
         self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
 
-        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(48)
+        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(72)
     }
     
     // MARK: Activity Functions
@@ -60,7 +60,6 @@ class ViewController: UIViewController {
             var currentActivity: String = "";
             if unwrappedActivity.automotive {
                 currentActivity = "🚗"
-                
             } else if unwrappedActivity.cycling {
                 currentActivity = "🚴"
             } else if unwrappedActivity.running {
@@ -121,7 +120,7 @@ class ViewController: UIViewController {
 //        startDayComponents.day = -1
 //        startDayComponents.second = -1
 //        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
-        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeIntervalSinceNow: -86400))
+        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeInterval: -3600, since: startOfToday))
         
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday, withHandler: handleYesterdaysStepCounting)
     }
