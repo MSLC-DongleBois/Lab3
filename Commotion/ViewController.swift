@@ -161,7 +161,7 @@ class ViewController: UIViewController {
     }
     
     func setRemainingSteps() {
-        var subtraction = self.todaysSteps - Float(self.stepGoal)!
+        var subtraction = Float(self.stepGoal)! - self.todaysSteps
         NSLog("Subtraction: \(subtraction)")
         if(subtraction < 0) {
             subtraction = 0
