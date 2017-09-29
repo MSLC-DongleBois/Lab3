@@ -12,8 +12,8 @@ import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    let BallCategory : UInt32 = 0x1 << 0
-    let BottomCategory : UInt32 = 0x1 << 2
+    let BoiCategory : UInt32 = 0x1 << 0
+    let AppleCategory : UInt32 = 0x1 << 1
     
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
-        print("WasCalled")
+        //print("WasCalled")
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
         
@@ -47,8 +47,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
         
-        if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory {
-            NSLog("Hit Bottom! Lost a life!")
+        if firstBody.categoryBitMask == BoiCategory && secondBody.categoryBitMask == AppleCategory {
+            print("boing")
         }
     }
     
@@ -110,9 +110,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // For collision uses
         boi.name = "boi"
-        boi.physicsBody?.categoryBitMask = BottomCategory
-        boi.physicsBody?.contactTestBitMask = BallCategory
-        //boi.physicsBody?.collisionBitMask = BottomCategory
+        boi.physicsBody?.categoryBitMask = AppleCategory
+        boi.physicsBody?.contactTestBitMask = BoiCategory
+        //boi.physicsBody?.collisionBitMask = AppleCategory
         
         
         self.addChild(boi)
@@ -134,8 +134,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         apple.zPosition = 1
         
         apple.name = "apple"
-        apple.physicsBody?.categoryBitMask = BallCategory
-        apple.physicsBody?.contactTestBitMask = BottomCategory
+        apple.physicsBody?.categoryBitMask = BoiCategory
+        apple.physicsBody?.contactTestBitMask = AppleCategory
 
         
         self.addChild(apple)
