@@ -18,6 +18,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: Raw Motion Functions
     let motion = CMMotionManager()
     
+    let score = SKLabelNode(fontNamed: "Chalkduster")
+    var scoreNum = 0
+    
+    
     func startMotionUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
         
@@ -34,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
-        //print("WasCalled")
+        
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
         
@@ -51,14 +55,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let sprite1 = self.childNode(withName: "apple")
             sprite1?.removeFromParent()
             self.addApple()
+            scoreNum += 1
+            score.text = "Score: " + String(scoreNum)
             
         }
     }
     
     // MARK: View Hierarchy Functions
     override func didMove(to view: SKView) {
-        
-        
         // Set up background image
         let background = SKSpriteNode(imageNamed: "background_leaf.jpg")
         background.position = CGPoint(x: size.width/2, y: size.height/2)
@@ -82,7 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addSpinningObstacle(CGPoint(x: size.width/2, y: size.height/2))
 
         // Add fidget spinners
-        self.addSpinner(CGPoint(x: size.width/5, y: size.height * 0.75))
+        self.addSpinner(CGPoint(x: size.width/5, y: size.height * 0.35))
         self.addSpinner(CGPoint(x: size.width/4, y: size.height * 0.75))
         self.addSpinner(CGPoint(x: size.width/1.2, y: size.height * 0.4))
         self.addSpinner(CGPoint(x: size.width/1, y: size.height * 0.75))
@@ -90,6 +94,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add goal
         self.addApple()
+        
+        score.text = "Score: " + String(scoreNum)
+        score.fontSize = 25
+        score.fontColor = SKColor.init(red: 0.03529, green: 0.868, blue: 0.086, alpha: 1.0)
+        score.position = CGPoint(x: size.width * 0.5, y: size.height * 0.045)
+        
+        addChild(score)
         
         
         self.physicsWorld.contactDelegate = self
@@ -128,7 +139,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         apple.size = CGSize(width:size.width*0.11,height:size.height * 0.07)
         
-        apple.position = CGPoint(x: size.width/2, y: size.height * 0.75)
+        var apple_locations: [CGPoint] = [CGPoint(x: size.width/2, y: size.height * 0.8),
+                                          CGPoint(x: size.width/2, y: size.height * 0.2),
+                                          CGPoint(x: size.width * 0.33, y: size.height * 0.5),
+                                          CGPoint(x: size.width * 0.66, y: size.height * 0.5),
+                                          CGPoint(x: size.width * 0.33, y: size.height * 0.8),
+                                          CGPoint(x: size.width * 0.66, y: size.height * 0.8),
+                                          CGPoint(x: size.width * 0.33, y: size.height * 0.2),
+                                          CGPoint(x: size.width * 0.66, y: size.height * 0.2)]
+        
+ 
+        let r = arc4random_uniform(7)
+        
+        apple.position = apple_locations[Int(r)]
         
         apple.physicsBody = SKPhysicsBody(rectangleOf:apple.size)
         //boi.physicsBody?.restitution = random(min: CGFloat(1.0), max: CGFloat(1.5))
@@ -156,19 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         wall.physicsBody = SKPhysicsBody(rectangleOf:wall.size)
         wall.physicsBody?.restitution = 1
         
-        wall.physicsBody?.isDynamic = true
-        wall.physicsBody?.allowsRotation = false
-        wall.physicsBody?.affectedByGravity = false
-        wall.zPosition = 1
-        
-        wall.physicsBody?.velocity = CGVector(dx: CGFloat(200), dy: 0)
-        
-        let yRange = SKRange(lowerLimit: point.y, upperLimit: point.y)
-        let xRange = SKRange(lowerLimit: 0, upperLimit: size.width)
-        
-        let lock = SKConstraint.positionX(xRange, y: yRange)
-        
-        wall.constraints = [lock]
+        wall.physicsBody?.isDynamic = false
         
         self.addChild(wall)
         
@@ -229,10 +240,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         right.position = CGPoint(x:size.width, y:size.height*0.5)
         
         top.size = CGSize(width:size.width,height:size.height*0.1)
-        top.position = CGPoint(x:size.width*0.5, y:size.height)
+        top.position = CGPoint(x:size.width*0.5, y:size.height*0.95)
         
         bottom.size = CGSize(width:size.width,height:size.height*0.1)
-        bottom.position = CGPoint(x:size.width*0.5, y:0)
+        bottom.position = CGPoint(x:size.width*0.5, y:size.height*0.05)
         
         for obj in [left,right,top,bottom]{
             obj.color = UIColor.brown
@@ -245,12 +256,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
-    
-    // MARK: UI Delegate Functions
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addApple()
-    }
-    
+//
+//    // MARK: UI Delegate Functions
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.addApple()
+//    }
+//
     // MARK: Utility Functions (thanks ray wenderlich!)
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
