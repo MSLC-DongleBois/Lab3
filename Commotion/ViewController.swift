@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let activityLabels = ["🚗": "Driving", "🚴": "Cycling", "🏃": "Running", "🚶": "Walking", "👨‍💻":  "Stationary", "🤷‍♂️": "Unknown", "🕵": "Detecting activity..."];
+    var yesterdaysSteps: Float = 0.0
     var todaysSteps: Float = 0.0 {
         willSet(newtotalSteps){
             DispatchQueue.main.async{
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
         self.startPedometerMonitoring()
         self.setTodaysSteps()
         self.setYesterdaysSteps()
+        self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
 
         currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(48)
     }
@@ -99,24 +101,27 @@ class ViewController: UIViewController {
 
     // Get number of steps today
     func setTodaysSteps() {
-        let startOfDay: Date = Calendar.current.startOfDay(for: Date())
+        let startOfToday: Date = Calendar.current.startOfDay(for: Date())
         
         var components = DateComponents()
         components.day = 1
         components.second = -1
-        let endOfDay: Date! = Calendar.current.date(byAdding: components, to: startOfDay)
+//        let endOfToday: Date! = Calendar.current.date(byAdding: components, to: startOfDay)
         
-        self.pedometer.queryPedometerData(from: startOfDay, to: endOfDay, withHandler: handleTodaysStepCounting)
+        let endOfToday: Date = Calendar.current.startOfDay(for: Date.init(timeIntervalSinceNow: 86400))
+        
+        self.pedometer.queryPedometerData(from: startOfToday, to: endOfToday, withHandler: handleTodaysStepCounting)
     }
     
     // Get total number of steps yesterday
     func setYesterdaysSteps() {
         let startOfToday: Date = Calendar.current.startOfDay(for: Date())
         
-        var startDayComponents = DateComponents()
-        startDayComponents.day = -1
-        startDayComponents.second = -1
-        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
+//        var startDayComponents = DateComponents()
+//        startDayComponents.day = -1
+//        startDayComponents.second = -1
+//        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
+        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeIntervalSinceNow: -86400))
         
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday, withHandler: handleYesterdaysStepCounting)
     }
@@ -131,7 +136,7 @@ class ViewController: UIViewController {
     // Handler for setYesterdaysSteps()
     func handleYesterdaysStepCounting(pedData: CMPedometerData?, error:Error?) -> Void {
         if let steps = pedData?.numberOfSteps {
-            self.yesterdaysStepsLabel.text = String(steps.floatValue)
+            self.yesterdaysSteps = steps.floatValue
         }
     }
 
