@@ -32,9 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.physicsWorld.gravity = CGVector(dx: CGFloat(19.8*gravity.x), dy: CGFloat(19.8*gravity.y))
         }
     }
-    
+
     func didBegin(_ contact: SKPhysicsContact) {
-        
+        print("WasCalled")
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
         
@@ -55,7 +55,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: View Hierarchy Functions
     override func didMove(to view: SKView) {
         
-        physicsWorld.contactDelegate = self
         
         // Set up background image
         let background = SKSpriteNode(imageNamed: "background_leaf.jpg")
@@ -88,6 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Add goal
         self.addApple()
+        
+        self.physicsWorld.contactDelegate = self
     }
     
     
@@ -109,7 +110,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // For collision uses
         boi.name = "boi"
-        boi.physicsBody!.categoryBitMask = BottomCategory
+        boi.physicsBody?.categoryBitMask = BottomCategory
+        boi.physicsBody?.contactTestBitMask = BallCategory
+        //boi.physicsBody?.collisionBitMask = BottomCategory
         
         
         self.addChild(boi)
@@ -131,7 +134,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         apple.zPosition = 1
         
         apple.name = "apple"
-        apple.physicsBody!.categoryBitMask = BallCategory
+        apple.physicsBody?.categoryBitMask = BallCategory
+        apple.physicsBody?.contactTestBitMask = BottomCategory
 
         
         self.addChild(apple)
