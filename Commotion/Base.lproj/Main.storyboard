@@ -61,6 +61,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyD-yJ-tt9">
+                                <rect key="frame" x="229" y="407" width="34" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="ykq-f6-cZY"/>
+                                </constraints>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveStepGoal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OxL-CC-U5a"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rpU-PU-dHz">
                                 <rect key="frame" x="101" y="408" width="120" height="30"/>
                                 <nil key="textColor"/>
@@ -73,16 +83,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyD-yJ-tt9">
-                                <rect key="frame" x="229" y="407" width="34" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="34" id="ykq-f6-cZY"/>
-                                </constraints>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveStepGoal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OxL-CC-U5a"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Steps remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wma-08-Lhf">
+                                <rect key="frame" x="125" y="485" width="124" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPF-EL-kcW">
+                                <rect key="frame" x="136" y="529" width="104" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -115,6 +129,7 @@
                     <connections>
                         <outlet property="currentActivityEmojiLabel" destination="HBj-Tj-5Hy" id="eD0-dX-93v"/>
                         <outlet property="currentActivityLabel" destination="gUw-Kx-iZQ" id="nxy-cR-ebO"/>
+                        <outlet property="remainingStepsLabel" destination="TPF-EL-kcW" id="a48-TB-emM"/>
                         <outlet property="stepGoalInput" destination="rpU-PU-dHz" id="FIZ-q8-6Uy"/>
                         <outlet property="stepGoalSaveButton" destination="fyD-yJ-tt9" id="WGq-tt-lTk"/>
                         <outlet property="stepsProgressBar" destination="vrF-L4-IBf" id="rTn-Jy-Pfb"/>

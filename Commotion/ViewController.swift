@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let activityLabels = ["🚗": "Driving", "🚴": "Cycling", "🏃": "Running", "🚶": "Walking", "👨‍💻":  "Stationary", "🤷‍♂️": "Unknown", "🕵": "Detecting activity..."];
-    var stepGoal: String = ""
+    var stepGoal: String = "0"
     var yesterdaysSteps: Float = 0.0
     var todaysSteps: Float = 0.0 {
         willSet(newtotalSteps){
@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var stepsProgressBar: UIProgressView!
     @IBOutlet weak var stepGoalInput: UITextField!
     @IBOutlet weak var stepGoalSaveButton: UIButton!
+    @IBOutlet weak var remainingStepsLabel: UILabel!
     
     //MARK: View Hierarchy
     override func viewDidLoad() {
@@ -45,13 +46,14 @@ class ViewController: UIViewController {
         self.setYesterdaysSteps()
         self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
 
-        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(72)
+        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(84)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if let recievedGoal = UserDefaults.standard.object(forKey: "myGoal") as? String {
             self.stepGoalInput.text = recievedGoal
             self.stepGoal = recievedGoal
+            self.setRemainingSteps()
         }
     }
     
@@ -59,6 +61,7 @@ class ViewController: UIViewController {
     @IBAction func saveStepGoal(_ sender: Any) {
         self.stepGoal = self.stepGoalInput.text!
         UserDefaults.standard.set(self.stepGoal, forKey: "myGoal")
+        self.setRemainingSteps()
         self.view.endEditing(true)
     }
     
@@ -111,6 +114,7 @@ class ViewController: UIViewController {
         if let steps = pedData?.numberOfSteps {
             let totalSteps = self.todaysSteps + steps.floatValue
             self.todaysStepsLabel.text = String(totalSteps)
+            self.setRemainingSteps()
             self.stepsProgressBar.progress = totalSteps/Float(self.stepGoal)!
         }
     }
@@ -133,11 +137,11 @@ class ViewController: UIViewController {
     func setYesterdaysSteps() {
         let startOfToday: Date = Calendar.current.startOfDay(for: Date())
         
-//        var startDayComponents = DateComponents()
-//        startDayComponents.day = -1
-//        startDayComponents.second = -1
-//        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
-        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeInterval: -3600, since: startOfToday))
+        var startDayComponents = DateComponents()
+        startDayComponents.day = -1
+        startDayComponents.second = -1
+        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
+//        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeInterval: -3600, since: startOfToday))
         
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday, withHandler: handleYesterdaysStepCounting)
     }
@@ -154,6 +158,15 @@ class ViewController: UIViewController {
         if let steps = pedData?.numberOfSteps {
             self.yesterdaysSteps = steps.floatValue
         }
+    }
+    
+    func setRemainingSteps() {
+        var subtraction = self.todaysSteps - Float(self.stepGoal)!
+        NSLog("Subtraction: \(subtraction)")
+        if(subtraction < 0) {
+            subtraction = 0
+        }
+        self.remainingStepsLabel.text = String(subtraction)
     }
 
 }
