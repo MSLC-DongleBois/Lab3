@@ -14,56 +14,35 @@ class ViewController: UIViewController {
     //MARK: class variables
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
-    let motion = CMMotionManager()
+    let activityLabels = ["🚗": "Driving", "🚴": "Cycling", "🏃": "Running", "🚶": "Walking", "👨‍💻":  "Stationary", "🤷‍♂️": "Unknown", "🕵": "Detecting activity..."];
     var totalSteps: Float = 0.0 {
         willSet(newtotalSteps){
             DispatchQueue.main.async{
-                self.stepsSlider.setValue(newtotalSteps, animated: true)
-                self.stepsLabel.text = "Steps: \(newtotalSteps)"
+                self.currentStepsLabel.text = "Steps: \(newtotalSteps)"
             }
         }
     }
     
     //MARK: UI Elements
-    @IBOutlet weak var stepsSlider: UISlider!
-    @IBOutlet weak var stepsLabel: UILabel!
-    @IBOutlet weak var isWalking: UILabel!
-    
+    @IBOutlet weak var currentStepsLabel: UILabel!
+    @IBOutlet weak var currentActivityEmojiLabel: UILabel!
+    @IBOutlet weak var currentActivityLabel: UILabel!
     
     //MARK: View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         self.totalSteps = 0.0
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
-        self.startMotionUpdates()
+        
+        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(48)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    
-    // MARK: Raw Motion Functions
-    func startMotionUpdates(){
-        // some internal inconsistency here: we need to ask the device manager for device 
-        
-        // TODO: should we be doing this from the MAIN queue? You will need to fix that!!!....
-        if self.motion.isDeviceMotionAvailable{
-            self.motion.startDeviceMotionUpdates(to: OperationQueue.main,
-                                                 withHandler: self.handleMotion)
-        }
-    }
-    
-    func handleMotion(_ motionData:CMDeviceMotion?, error:Error?){
-        if let gravity = motionData?.gravity {
-            let rotation = atan2(gravity.x, gravity.y) - Double.pi
-            self.isWalking.transform = CGAffineTransform(rotationAngle: CGFloat(rotation))
-        }
     }
     
     // MARK: Activity Functions
@@ -79,8 +58,26 @@ class ViewController: UIViewController {
     func handleActivity(_ activity:CMMotionActivity?)->Void{
         // unwrap the activity and disp
         if let unwrappedActivity = activity {
+            var currentActivity: String = "";
+            if unwrappedActivity.automotive {
+                currentActivity = "🚗"
+                
+            } else if unwrappedActivity.cycling {
+                currentActivity = "🚴"
+            } else if unwrappedActivity.running {
+                currentActivity = "🏃"
+            } else if unwrappedActivity.walking {
+                currentActivity = "🚶"
+            } else if unwrappedActivity.stationary {
+                currentActivity = "👨‍💻"
+            } else if unwrappedActivity.unknown {
+                currentActivity = "🤷‍♂️"
+            } else {
+                currentActivity = "🕵"
+            }
             DispatchQueue.main.async{
-                self.isWalking.text = "Walking: \(unwrappedActivity.walking)\n Still: \(unwrappedActivity.stationary)"
+                self.currentActivityEmojiLabel.text = currentActivity
+                self.currentActivityLabel.text = self.activityLabels[currentActivity]
             }
         }
     }
