@@ -30,21 +30,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var currentActivityLabel: UILabel!
     @IBOutlet weak var todaysStepsLabel: UILabel!
     @IBOutlet weak var yesterdaysStepsLabel: UILabel!
+    
     @IBOutlet weak var stepsProgressBar: UIProgressView!
     @IBOutlet weak var stepGoalInput: UITextField!
     @IBOutlet weak var stepGoalSaveButton: UIButton!
     @IBOutlet weak var remainingStepsLabel: UILabel!
+    @IBOutlet weak var playGameButton: UIButton!
     
     //MARK: View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
         self.setTodaysSteps()
         self.setYesterdaysSteps()
-        self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
+        print("Yesterdays steps2: ", self.yesterdaysSteps)
+        
 
         currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(84)
     }
@@ -53,15 +57,18 @@ class ViewController: UIViewController {
         if let recievedGoal = UserDefaults.standard.object(forKey: "myGoal") as? String {
             self.stepGoalInput.text = recievedGoal
             self.stepGoal = recievedGoal
-            self.setRemainingSteps()
+            self.setRemainingSteps(newSteps: self.todaysSteps)
         }
     }
     
     // Save inputted step goal count
     @IBAction func saveStepGoal(_ sender: Any) {
         self.stepGoal = self.stepGoalInput.text!
+        if(Float(self.stepGoal) == nil) {
+            self.stepGoal = "1"
+        }
         UserDefaults.standard.set(self.stepGoal, forKey: "myGoal")
-        self.setRemainingSteps()
+        self.setRemainingSteps(newSteps: self.todaysSteps)
         self.view.endEditing(true)
     }
     
@@ -114,8 +121,9 @@ class ViewController: UIViewController {
         if let steps = pedData?.numberOfSteps {
             let totalSteps = self.todaysSteps + steps.floatValue
             self.todaysStepsLabel.text = String(totalSteps)
-            self.setRemainingSteps()
+            self.setRemainingSteps(newSteps: totalSteps)
             self.stepsProgressBar.progress = totalSteps/Float(self.stepGoal)!
+            
         }
     }
 
@@ -143,6 +151,7 @@ class ViewController: UIViewController {
         let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
 //        let startOfYesterday: Date = Calendar.current.startOfDay(for: Date.init(timeInterval: -3600, since: startOfToday))
         
+        print("startOfYesterday:", startOfYesterday)
         self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday, withHandler: handleYesterdaysStepCounting)
     }
     
@@ -157,16 +166,24 @@ class ViewController: UIViewController {
     func handleYesterdaysStepCounting(pedData: CMPedometerData?, error:Error?) -> Void {
         if let steps = pedData?.numberOfSteps {
             self.yesterdaysSteps = steps.floatValue
+            self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
         }
     }
     
-    func setRemainingSteps() {
-        var subtraction = Float(self.stepGoal)! - self.todaysSteps
+    func setRemainingSteps(newSteps: Float) {
+        var subtraction = Float(self.stepGoal)! - newSteps
         NSLog("Subtraction: \(subtraction)")
         if(subtraction < 0) {
             subtraction = 0
         }
         self.remainingStepsLabel.text = String(subtraction)
+        
+        if(subtraction > 0) {
+            self.playGameButton.isEnabled = false
+        } else {
+            self.playGameButton.isEnabled = true
+        }
+        
     }
 
 }

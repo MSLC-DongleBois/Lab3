@@ -20,6 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let score = SKLabelNode(fontNamed: "Chalkduster")
     var scoreNum = 0
     
+    let highScore = SKLabelNode(fontNamed: "Chalkduster")
+    var highScoreNum = 0
     
     func startMotionUpdates(){
         // some internal inconsistency here: we need to ask the device manager for device
@@ -57,12 +59,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreNum += 1
             score.text = "Score: " + String(scoreNum)
             
+            if (scoreNum > highScoreNum)
+            {
+                highScoreNum = scoreNum
+                highScore.text = "Record: " + String(scoreNum)
+                UserDefaults.standard.set(self.highScoreNum, forKey: "highScore")
+            }
+            
         }
     }
     
     // MARK: View Hierarchy Functions
     override func didMove(to view: SKView) {
-        // Set up background image
+        
+        if let newHighScore = UserDefaults.standard.object(forKey: "highScore") as? Int {
+            self.highScoreNum = newHighScore
+            self.highScore.text = "Record: " + String(self.highScoreNum)
+        } else {
+            UserDefaults.standard.set(0, forKey: "highScore")
+        }
+    
+        // Set up background image\
         let background = SKSpriteNode(imageNamed: "background_leaf.jpg")
         background.position = CGPoint(x: size.width/2, y: size.height/2)
         background.zPosition = -1
@@ -97,9 +114,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         score.text = "Score: " + String(scoreNum)
         score.fontSize = 25
         score.fontColor = SKColor.init(red: 0.03529, green: 0.868, blue: 0.086, alpha: 1.0)
-        score.position = CGPoint(x: size.width * 0.5, y: size.height * 0.045)
+        score.position = CGPoint(x: size.width * 0.72, y: size.height * 0.045)
+        
+//        highScore.text = "Record: " + String(scoreNum)
+        highScore.fontSize = 25
+        highScore.fontColor = SKColor.init(red: 0.03529, green: 0.868, blue: 0.086, alpha: 1.0)
+        highScore.position = CGPoint(x: size.width * 0.28, y: size.height * 0.045)
+        
         
         addChild(score)
+        addChild(highScore)
         
         
         self.physicsWorld.contactDelegate = self

@@ -103,8 +103,8 @@
 			children = (
 				B62ED3A21D7F299D00B503DF /* AppDelegate.swift */,
 				B62ED3A41D7F299D00B503DF /* ViewController.swift */,
-				B68B9D491D7F6EA8002037A3 /* GameViewController.swift */,
 				B68B9D4B1D7F6EFA002037A3 /* GameScene.swift */,
+				B68B9D491D7F6EA8002037A3 /* GameViewController.swift */,
 				B62ED3A61D7F299D00B503DF /* Main.storyboard */,
 				B62ED3A91D7F299D00B503DF /* Assets.xcassets */,
 				B62ED3AB1D7F299D00B503DF /* LaunchScreen.storyboard */,
