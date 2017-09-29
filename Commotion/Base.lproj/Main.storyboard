@@ -31,6 +31,9 @@
                                 <rect key="frame" x="141" y="353" width="93" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="ShittyGame"/>
+                                <connections>
+                                    <segue destination="uAs-2Q-GOu" kind="show" id="xv6-8A-nYK"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
