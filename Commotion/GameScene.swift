@@ -48,7 +48,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if firstBody.categoryBitMask == BoiCategory && secondBody.categoryBitMask == AppleCategory {
-            print("boing")
+            let sprite1 = self.childNode(withName: "apple")
+            sprite1?.removeFromParent()
+            self.addApple()
+            
         }
     }
     
@@ -88,6 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Add goal
         self.addApple()
         
+        
         self.physicsWorld.contactDelegate = self
     }
     
@@ -110,8 +114,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // For collision uses
         boi.name = "boi"
-        boi.physicsBody?.categoryBitMask = AppleCategory
-        boi.physicsBody?.contactTestBitMask = BoiCategory
+        boi.physicsBody?.categoryBitMask = BoiCategory
+        boi.physicsBody?.contactTestBitMask = AppleCategory
         //boi.physicsBody?.collisionBitMask = AppleCategory
         
         
@@ -134,10 +138,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         apple.zPosition = 1
         
         apple.name = "apple"
-        apple.physicsBody?.categoryBitMask = BoiCategory
-        apple.physicsBody?.contactTestBitMask = AppleCategory
+        apple.physicsBody?.categoryBitMask = AppleCategory
+        apple.physicsBody?.contactTestBitMask = BoiCategory
 
-        
         self.addChild(apple)
         
     }
@@ -245,7 +248,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK: UI Delegate Functions
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addBoi()
+        self.addApple()
     }
     
     // MARK: Utility Functions (thanks ray wenderlich!)
