@@ -15,34 +15,32 @@ class ViewController: UIViewController {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let activityLabels = ["🚗": "Driving", "🚴": "Cycling", "🏃": "Running", "🚶": "Walking", "👨‍💻":  "Stationary", "🤷‍♂️": "Unknown", "🕵": "Detecting activity..."];
-    var totalSteps: Float = 0.0 {
+    var todaysSteps: Float = 0.0 {
         willSet(newtotalSteps){
             DispatchQueue.main.async{
-                self.currentStepsLabel.text = "Steps: \(newtotalSteps)"
+                self.todaysStepsLabel.text = "\(newtotalSteps)"
             }
         }
     }
     
     //MARK: UI Elements
-    @IBOutlet weak var currentStepsLabel: UILabel!
     @IBOutlet weak var currentActivityEmojiLabel: UILabel!
     @IBOutlet weak var currentActivityLabel: UILabel!
+    @IBOutlet weak var todaysStepsLabel: UILabel!
+    @IBOutlet weak var yesterdaysStepsLabel: UILabel!
+    @IBOutlet weak var stepsProgressBar: UIProgressView!
     
     //MARK: View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.totalSteps = 0.0
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
-        
-        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(48)
-    }
+        self.setTodaysSteps()
+        self.setYesterdaysSteps()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(48)
     }
     
     // MARK: Activity Functions
@@ -52,7 +50,6 @@ class ViewController: UIViewController {
             // update from this queue (should we use the MAIN queue here??.... )
             self.activityManager.startActivityUpdates(to: OperationQueue.main, withHandler: self.handleActivity)
         }
-        
     }
     
     func handleActivity(_ activity:CMMotionActivity?)->Void{
@@ -92,12 +89,51 @@ class ViewController: UIViewController {
     }
     
     //ped handler
-    func handlePedometer(_ pedData:CMPedometerData?, error:Error?)->(){
+    func handlePedometer(_ pedData:CMPedometerData?, error:Error?) -> (){
         if let steps = pedData?.numberOfSteps {
-            self.totalSteps = steps.floatValue
+            let totalSteps = self.todaysSteps + steps.floatValue
+            self.todaysStepsLabel.text = String(totalSteps)
+            self.stepsProgressBar.progress = totalSteps/500
         }
     }
 
+    // Get number of steps today
+    func setTodaysSteps() {
+        let startOfDay: Date = Calendar.current.startOfDay(for: Date())
+        
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        let endOfDay: Date! = Calendar.current.date(byAdding: components, to: startOfDay)
+        
+        self.pedometer.queryPedometerData(from: startOfDay, to: endOfDay, withHandler: handleTodaysStepCounting)
+    }
+    
+    // Get total number of steps yesterday
+    func setYesterdaysSteps() {
+        let startOfToday: Date = Calendar.current.startOfDay(for: Date())
+        
+        var startDayComponents = DateComponents()
+        startDayComponents.day = -1
+        startDayComponents.second = -1
+        let startOfYesterday: Date! = Calendar.current.date(byAdding: startDayComponents, to: startOfToday)
+        
+        self.pedometer.queryPedometerData(from: startOfYesterday, to: startOfToday, withHandler: handleYesterdaysStepCounting)
+    }
+    
+    // Handler for setTodaysSteps()
+    func handleTodaysStepCounting(pedData: CMPedometerData?, error:Error?) -> Void {
+        if let steps = pedData?.numberOfSteps {
+            self.todaysSteps = steps.floatValue
+        }
+    }
+    
+    // Handler for setYesterdaysSteps()
+    func handleYesterdaysStepCounting(pedData: CMPedometerData?, error:Error?) -> Void {
+        if let steps = pedData?.numberOfSteps {
+            self.yesterdaysStepsLabel.text = String(steps.floatValue)
+        }
+    }
 
 }
 
