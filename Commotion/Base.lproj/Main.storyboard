@@ -22,68 +22,101 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yesterday's steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AI8-Vp-Oij">
-                                <rect key="frame" x="120.5" y="142" width="134.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Yesterday's steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AI8-Vp-Oij">
+                                <rect key="frame" x="120" y="185" width="135" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emoji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBj-Tj-5Hy">
-                                <rect key="frame" x="166" y="239" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Emoji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBj-Tj-5Hy">
+                                <rect key="frame" x="166" y="282" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNu-Dh-uft">
-                                <rect key="frame" x="176.5" y="171" width="22" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNu-Dh-uft">
+                                <rect key="frame" x="177" y="214" width="22" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vrF-L4-IBf">
-                                <rect key="frame" x="16" y="113" width="343" height="2"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vrF-L4-IBf">
+                                <rect key="frame" x="16" y="156" width="343" height="2"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Emoji Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUw-Kx-iZQ">
-                                <rect key="frame" x="142" y="291" width="88" height="27"/>
+                                <rect key="frame" x="142" y="334" width="88" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Today's steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcE-h1-Px6">
-                                <rect key="frame" x="135" y="28" width="105" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Today's steps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcE-h1-Px6">
+                                <rect key="frame" x="135" y="115" width="105" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh7-iQ-q6H">
-                                <rect key="frame" x="175" y="57" width="24" height="21"/>
+                                <rect key="frame" x="175" y="95" width="24" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rpU-PU-dHz">
+                                <rect key="frame" x="101" y="408" width="120" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGY-AA-Nkc">
+                                <rect key="frame" x="16" y="413" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyD-yJ-tt9">
+                                <rect key="frame" x="229" y="407" width="34" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="ykq-f6-cZY"/>
+                                </constraints>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveStepGoal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OxL-CC-U5a"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="fyD-yJ-tt9" secondAttribute="trailing" constant="96" id="0RT-IK-94S"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="centerX" secondItem="AI8-Vp-Oij" secondAttribute="centerX" id="43d-0v-PrG"/>
                             <constraint firstItem="AI8-Vp-Oij" firstAttribute="top" secondItem="vrF-L4-IBf" secondAttribute="bottom" constant="27" id="67B-w4-xjk"/>
                             <constraint firstItem="Kh7-iQ-q6H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6cD-RR-f5n"/>
-                            <constraint firstItem="vrF-L4-IBf" firstAttribute="centerX" secondItem="NcE-h1-Px6" secondAttribute="centerX" id="Cxj-OV-oQk"/>
                             <constraint firstItem="gUw-Kx-iZQ" firstAttribute="top" secondItem="HBj-Tj-5Hy" secondAttribute="bottom" constant="31" id="O9v-X4-vIK"/>
-                            <constraint firstItem="gUw-Kx-iZQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ohc-mC-asH"/>
+                            <constraint firstItem="HGY-AA-Nkc" firstAttribute="centerY" secondItem="rpU-PU-dHz" secondAttribute="centerY" id="OTY-TC-Vk6"/>
+                            <constraint firstItem="gUw-Kx-iZQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1.5" id="Ohc-mC-asH"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="113" id="P8B-MK-dQ8"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="PUW-3W-raB"/>
+                            <constraint firstItem="rpU-PU-dHz" firstAttribute="leading" secondItem="HGY-AA-Nkc" secondAttribute="trailing" constant="8" symbolic="YES" id="PqP-f0-GnN"/>
+                            <constraint firstItem="HGY-AA-Nkc" firstAttribute="leading" secondItem="vrF-L4-IBf" secondAttribute="leading" id="QVd-2a-95e"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HGY-AA-Nkc" secondAttribute="bottom" constant="233" id="RUW-1j-DE5"/>
+                            <constraint firstItem="fyD-yJ-tt9" firstAttribute="leading" secondItem="rpU-PU-dHz" secondAttribute="trailing" constant="8" symbolic="YES" id="WoA-Bv-lTF"/>
                             <constraint firstItem="HBj-Tj-5Hy" firstAttribute="top" secondItem="BNu-Dh-uft" secondAttribute="bottom" constant="47" id="X47-pr-NWG"/>
+                            <constraint firstItem="NcE-h1-Px6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="bH3-lx-5AB"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="centerX" secondItem="BNu-Dh-uft" secondAttribute="centerX" id="bS0-SB-4d0"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="csb-Yr-i8p"/>
                             <constraint firstItem="BNu-Dh-uft" firstAttribute="top" secondItem="AI8-Vp-Oij" secondAttribute="bottom" constant="8" id="eQf-HV-1J7"/>
+                            <constraint firstItem="NcE-h1-Px6" firstAttribute="centerX" secondItem="Kh7-iQ-q6H" secondAttribute="centerX" id="jkS-AV-st8"/>
                             <constraint firstItem="vrF-L4-IBf" firstAttribute="top" secondItem="Kh7-iQ-q6H" secondAttribute="bottom" constant="35" id="lKg-Cw-uc4"/>
-                            <constraint firstItem="Kh7-iQ-q6H" firstAttribute="leading" secondItem="vrF-L4-IBf" secondAttribute="trailing" constant="-190" id="q1w-Hj-9z0"/>
+                            <constraint firstItem="Kh7-iQ-q6H" firstAttribute="leading" secondItem="vrF-L4-IBf" secondAttribute="trailing" constant="-184" id="q1w-Hj-9z0"/>
+                            <constraint firstItem="fyD-yJ-tt9" firstAttribute="baseline" secondItem="rpU-PU-dHz" secondAttribute="baseline" id="s0X-UG-e0N"/>
                             <constraint firstItem="HBj-Tj-5Hy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ya0-Ar-RED"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Pvc-cO-X4x"/>
                     <connections>
                         <outlet property="currentActivityEmojiLabel" destination="HBj-Tj-5Hy" id="eD0-dX-93v"/>
                         <outlet property="currentActivityLabel" destination="gUw-Kx-iZQ" id="nxy-cR-ebO"/>
+                        <outlet property="stepGoalInput" destination="rpU-PU-dHz" id="FIZ-q8-6Uy"/>
+                        <outlet property="stepGoalSaveButton" destination="fyD-yJ-tt9" id="WGq-tt-lTk"/>
                         <outlet property="stepsProgressBar" destination="vrF-L4-IBf" id="rTn-Jy-Pfb"/>
                         <outlet property="todaysStepsLabel" destination="Kh7-iQ-q6H" id="mdr-Zj-4uW"/>
                         <outlet property="yesterdaysStepsLabel" destination="BNu-Dh-uft" id="KOW-9D-Udr"/>
@@ -91,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="563.5" y="336.5"/>
+            <point key="canvasLocation" x="562.39999999999998" y="335.98200899550227"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="rB5-LK-c32">

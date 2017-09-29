@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let activityManager = CMMotionActivityManager()
     let pedometer = CMPedometer()
     let activityLabels = ["🚗": "Driving", "🚴": "Cycling", "🏃": "Running", "🚶": "Walking", "👨‍💻":  "Stationary", "🤷‍♂️": "Unknown", "🕵": "Detecting activity..."];
+    var stepGoal: String = ""
     var yesterdaysSteps: Float = 0.0
     var todaysSteps: Float = 0.0 {
         willSet(newtotalSteps){
@@ -30,6 +31,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var todaysStepsLabel: UILabel!
     @IBOutlet weak var yesterdaysStepsLabel: UILabel!
     @IBOutlet weak var stepsProgressBar: UIProgressView!
+    @IBOutlet weak var stepGoalInput: UITextField!
+    @IBOutlet weak var stepGoalSaveButton: UIButton!
     
     //MARK: View Hierarchy
     override func viewDidLoad() {
@@ -43,6 +46,20 @@ class ViewController: UIViewController {
         self.yesterdaysStepsLabel.text = String(self.yesterdaysSteps)
 
         currentActivityEmojiLabel.font = currentActivityEmojiLabel.font.withSize(72)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let recievedGoal = UserDefaults.standard.object(forKey: "myGoal") as? String {
+            self.stepGoalInput.text = recievedGoal
+            self.stepGoal = recievedGoal
+        }
+    }
+    
+    // Save inputted step goal count
+    @IBAction func saveStepGoal(_ sender: Any) {
+        self.stepGoal = self.stepGoalInput.text!
+        UserDefaults.standard.set(self.stepGoal, forKey: "myGoal")
+        self.view.endEditing(true)
     }
     
     // MARK: Activity Functions
@@ -94,7 +111,7 @@ class ViewController: UIViewController {
         if let steps = pedData?.numberOfSteps {
             let totalSteps = self.todaysSteps + steps.floatValue
             self.todaysStepsLabel.text = String(totalSteps)
-            self.stepsProgressBar.progress = totalSteps/500
+            self.stepsProgressBar.progress = totalSteps/Float(self.stepGoal)!
         }
     }
 
@@ -140,4 +157,3 @@ class ViewController: UIViewController {
     }
 
 }
-
