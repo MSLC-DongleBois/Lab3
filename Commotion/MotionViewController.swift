@@ -9,7 +9,7 @@
 import UIKit
 import CoreMotion
 
-class ViewController: UIViewController {
+class MotionViewController: UIViewController {
     
     //MARK: class variables
     let activityManager = CMMotionActivityManager()
@@ -27,7 +27,6 @@ class ViewController: UIViewController {
     //MARK: UI Elements
     @IBOutlet weak var stepsSlider: UISlider!
     @IBOutlet weak var stepsLabel: UILabel!
-    @IBOutlet weak var isWalking: UILabel!
     
     
     //MARK: View Hierarchy
@@ -39,7 +38,6 @@ class ViewController: UIViewController {
         self.totalSteps = 0.0
         self.startActivityMonitoring()
         self.startPedometerMonitoring()
-        self.startMotionUpdates()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,22 +47,9 @@ class ViewController: UIViewController {
     
     
     // MARK: Raw Motion Functions
-    func startMotionUpdates(){
-        // some internal inconsistency here: we need to ask the device manager for device 
-        
-        // TODO: should we be doing this from the MAIN queue? You will need to fix that!!!....
-        if self.motion.isDeviceMotionAvailable{
-            self.motion.startDeviceMotionUpdates(to: OperationQueue.main,
-                                                 withHandler: self.handleMotion)
-        }
-    }
+
     
-    func handleMotion(_ motionData:CMDeviceMotion?, error:Error?){
-        if let gravity = motionData?.gravity {
-            let rotation = atan2(gravity.x, gravity.y) - Double.pi
-            self.isWalking.transform = CGAffineTransform(rotationAngle: CGFloat(rotation))
-        }
-    }
+   
     
     // MARK: Activity Functions
     func startActivityMonitoring(){
@@ -80,7 +65,7 @@ class ViewController: UIViewController {
         // unwrap the activity and disp
         if let unwrappedActivity = activity {
             DispatchQueue.main.async{
-                self.isWalking.text = "Walking: \(unwrappedActivity.walking)\n Still: \(unwrappedActivity.stationary)"
+                //self.isWalking.text = "Walking: \(unwrappedActivity.walking)\n Still: \(unwrappedActivity.stationary)"
             }
         }
     }
